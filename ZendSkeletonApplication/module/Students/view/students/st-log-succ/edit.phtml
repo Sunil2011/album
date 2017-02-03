@@ -1,0 +1,38 @@
+<?php
+
+$title = 'Edit Student';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <?php
+ $form2 = $this->form2;
+ //var_dump($this->id);//corect
+ $form2->setAttribute('action', $this->url('edit1',array('id'=> $this->id)
+ ));
+ $form2->prepare();
+
+ echo $this->form()->openTag($form2);
+ echo $this->formHidden($form2->get('id'));
+/*
+ echo $this->formRow($form2->get('name'));
+ echo $this->formRow($form2->get('department'));
+ echo $this->formSubmit($form2->get('submit'));
+ echo $this->form()->closeTag();
+*/
+ ?>
+ <table>
+     <tr>
+         <td> <b> Name: </b></td>
+         <td> <?php echo $this->formRow($form2->get('name')); ?> </td>
+     </tr>
+     <tr>
+         <td> <b> Department : </b> </td>
+         <td> <?php echo $this->formRow($form2->get('department'));  ?> </td>
+     </tr>
+     <tr>
+         <td> <?php  echo $this->formSubmit($form2->get('submit'));  ?> </td>
+     </tr>
+ </table>
+ 
+ <?php echo $this->form()->closeTag(); ?>

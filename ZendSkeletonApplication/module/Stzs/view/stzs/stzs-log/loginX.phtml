@@ -1,0 +1,30 @@
+<?php
+
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'login2/process',
+    array(
+        'action'     => 'authenticate',
+    )
+));
+$form->prepare();
+ 
+echo $this->form()->openTag($form);
+
+//echo $this->formCollection($form);
+echo $this->formRow($form->get('username'));
+echo '<br>';
+echo $this->formRow($form->get('password'));
+echo '<br>';
+echo $this->formRow($form->get('submit'));
+
+echo $this->form()->closeTag();
+ 
+if ($this->messages){
+    echo '<ul>';
+    foreach($this->messages as $message)
+    {
+        echo '<li>'.$message.'</li>';
+    }
+    echo '</ul>';
+}

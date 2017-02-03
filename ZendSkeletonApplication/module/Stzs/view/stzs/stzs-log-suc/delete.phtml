@@ -1,0 +1,44 @@
+
+ <h2 style="color:#006699"> Delete Students </h2>
+
+ 
+ <div ng-app="myApp" ng-controller="myCtrlDlt" >
+     
+    <p>
+        Are you sure you want to delete <span style="color:#000099"> {{ name_D.name }} </span> from <span style="color:#000099"> {{ name_D.department}} </span> .
+    </p>
+     
+ </div>
+ <form id="myform" action="" method="post">
+ <div>
+     <input type="hidden" name="id"  value=""  id="ID"/>
+     <input type="submit" name="del" value="Yes" />
+     <input type="submit" name="del" value="No" />
+ </div>
+ </form>
+ 
+ 
+ 
+ <script>
+   
+    var host = "http://" + window.location.hostname;
+    var basePath = host + '/PhpProject5_album/ZendSkeletonApplication/public/stzs' ;
+    var url = window.location.href ;
+    var p = url.split('/'); // http: , ,localhost, PhpProject.. ,ZendS... ,public,stzs,success,delete,id
+    var Id = p[9];  // id
+    
+    var app = angular.module('myApp', []);
+    app.controller('myCtrlDlt', function($scope, $http) {
+        $http.get(basePath + '/success/data/getJsonToDelete/' + Id )
+        .then( function(response) {$scope.name_D = response.data.stz;} );
+           
+    });
+    
+    
+    
+    $(document).ready(function(){
+        $("#ID").val(Id) ;
+        $("#myform").attr("action", url)
+    });
+    
+</script>

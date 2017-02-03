@@ -1,0 +1,61 @@
+
+<p>Login Success.</p>
+<br />
+<?php 
+
+ foreach ($messages as $message){
+     echo $message;
+     }
+?>
+<br />
+<a href="<?php
+echo $this->url('login2/process', array('action'=>'logout')); ?>">Logout</a>
+
+<?php
+
+$title = 'Students List';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <p>
+     <a href="<?php echo $this->url('add2');?>">Add new Student</a>
+ </p>
+
+ <table class="table table-bordered table-hover">
+ <tr>
+     <th>Name</th>
+     <th>Department</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php //echo $stzs.name; exit;
+      foreach ($stzs as $stz) :
+      ?>
+ <tr>
+     <td><?php echo $this->escapeHtml($stz->name);?></td>
+     <td><?php echo $this->escapeHtml($stz->department);?></td>
+     <td>
+         
+ <a href="<?php echo $this->url('success2',
+           array('action'=>'edit', 'id' => $stz->id));?>">Edit</a>
+         <a href="<?php echo $this->url('success2',
+             array('action'=>'delete', 'id' => $stz->id));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+ <?php
+ // this is additional for pagination
+ /*echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     'partial/paginator.phtml',
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'success1'
+     )
+  ); */
+ 
+ ?>

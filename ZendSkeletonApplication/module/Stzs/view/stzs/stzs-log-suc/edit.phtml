@@ -1,0 +1,54 @@
+ 
+ <h2 style="color:#006699"> Edit Students </h2>
+ 
+ <div ng-app="myApp" ng-controller="myCtrlEdt">
+   
+     <form id="editForm" action="" method="post" >
+        <input type="hidden" name="id"  value="{{ name_E.id }}"  id="ID"/>  
+        
+        <table>
+            <tr>
+                <td>
+                    <label>Name:  </label>
+                </td>
+                <td>
+                    <input type="text" name="name" value="{{ name_E.name }}" id="Name" maxlength="30" required />
+                </td>
+           </tr>
+           <tr>
+               <td>
+                   <label> Department : </label>
+               </td>
+               <td>
+                   <input type="text" name="department" value="{{ name_E.department }}" id="Department" maxlength="30" required />
+               </td>
+           </tr> 
+           <tr>
+               <td>
+                   <input type="submit" name="Edit" value="Edit" id="Submit" />
+               </td>
+           </tr>
+        </table>
+    </form>
+     
+ </div>
+ 
+ 
+ <script>
+    var host = "http://" + window.location.hostname;
+    var basePath = host + '/PhpProject5_album/ZendSkeletonApplication/public/stzs' ;
+    var url = window.location.href ;
+    var p = url.split('/'); // http: , ,localhost, PhpProject.. ,ZendS... ,public,stzs,success,delete,id
+    var Id = p[9];  // id
+    
+    var app = angular.module('myApp', []) ;
+    app.controller('myCtrlEdt', function($scope, $http){
+        $http.get(basePath + '/success/data/getJsonToEdit/' + Id )
+            .then( function(response){ $scope.name_E = response.data.stz ;} ) ;
+    });
+    
+    
+    $(document).ready(function(){
+        $("#editForm").attr('action', url ) ;
+    }) ;
+ </script>

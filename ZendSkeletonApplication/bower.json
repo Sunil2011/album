@@ -1,0 +1,16 @@
+{
+  "name": "ZendSkeletonApplication",
+  "version": "1.7.0",
+  "homepage": "https://github.com/zendframework/ZendSkeletonApplication",
+  "authors": [
+    "sunil <sunil.mahto@riktamtech.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

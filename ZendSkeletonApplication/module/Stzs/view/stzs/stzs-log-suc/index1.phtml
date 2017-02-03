@@ -1,0 +1,103 @@
+
+
+<p> Login Success. </p>
+<br />
+
+<!-- messages returns  are not shown (have to use php) -->
+
+<br />
+<a id="lgt" >Logout</a>
+
+
+<h1 style="color:#009999"> Student List </h1>
+ <p>
+     <a  id="add" >Add new Student</a>
+ </p>
+ 
+ <div class="bs-component" ng-controller="myController">
+     
+     <form class="form-inline">
+        <div class="form-group">
+            <label> Search </label>
+            <input type="text" ng-model="search" class="form-control" placeholder="Search">
+        </div>
+         
+     </form>
+     
+     <table class="table table-striped table-hover">
+         <thead>
+             <tr>
+                 <th ng-click="sort('id')"> ID
+                     <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"> </span>
+                 </th>
+                 <th ng-click="sort('name')"> Name
+                     <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"> </span>
+                 </th>
+                 <th ng-click="sort('department')"> Department 
+                     <span class="glyphicon sort-icon" ng-show="sortKey=='department'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"> </span>
+                 </th>
+             </tr>
+         </thead>
+         
+         <tbody>
+             <tr dir-paginate="student in students | orderBy:sortKey:reverse | filter:search | itemsPerPage:5 ">
+                 <td> {{ student.id }}</td>
+                 <td> {{ student.name }} </td>
+                 <td> {{ student.department }} </td>
+             </tr>
+         </tbody>
+     </table>
+     
+     <dir-pagination-controls
+        max-size="5"
+        direction-links="true"
+        boundary-links="true" >
+     </dir-pagination-controls>
+     
+     
+ </div>
+ 
+ 
+ 
+
+<script src="http://localhost/PhpProject5_album/ZendSkeletonApplication/public/bower_components/angular-utils-pagination/dirPagination.js"></script>
+
+ <script  >
+    
+    var host = "http://" + window.location.hostname;
+    var basePath = host + '/PhpProject5_album/ZendSkeletonApplication/public/stzs' ;
+     
+    var app = angular.module('myApp', ['angularUtils.directives.dirPagination']);
+    
+    app.controller('myController', function($scope, $http) {
+        $http.get( basePath + '/success/data' )
+        .then(function (response) {$scope.students = response.data.stzs;});
+        
+        
+        $scope.BP = basePath ;       
+
+        $scope.sort = function(keyname){
+            $scope.sortKey = keyname; //set the sortKey to the param passed
+            $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+        } ;
+   
+        
+    });
+    
+        
+    $(document).ready(function(){ 
+        $("a#lgt").attr("href", basePath + '/logout');
+        $("a#add").attr("href", basePath + '/success/add');
+   
+   });
+  
+    
+</script>
+
+ 
+ 
+
+
+
+
+

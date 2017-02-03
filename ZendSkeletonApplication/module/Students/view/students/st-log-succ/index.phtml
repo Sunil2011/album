@@ -1,0 +1,78 @@
+<p>Login Success.</p>
+<br />
+<?php 
+
+ foreach ($messages as $message){
+     echo $message;
+     
+ }?>
+<br />
+<a href="<?php
+
+     echo $this->url('login1/process', array('action'=>'logout')); ?>">Logout</a>
+
+<?php
+
+$title = 'Students List';
+ $this->headTitle($title);
+ 
+ $url_order = 'ASC';  // the following lines for pagination and sorting
+ if ($order_by == 'name'){
+     $url_order = $order == 'ASC' ? 'DESC' : 'ASC';
+     }
+     elseif ($order_by == 'department'){
+         $url_order = $order == 'ASC' ? 'DESC' : 'ASC';
+     }   
+?>
+
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <p>
+     <a href="<?php echo $this->url('add1');?>">Add new Student</a>
+ </p>
+
+ <table class="table table-bordered table-hover">
+ <tr>
+     <th>
+            <a href="<?php echo $this->url('success1', array('order_by' => 'name', 'order' => $url_order)); ?>">Name <?php if ($order_by == 'name'): ?><i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url('success1', array('order_by' => 'department', 'order' => $url_order)); ?>">Department <?php if ($order_by == 'department'): ?><i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a></th>
+        <th>&nbsp;</th>
+ </tr>
+ <?php //foreach ($students as $student) : // use below one for pagination
+   foreach ($this->paginator as $student) : // <-- change here! 
+ ?>
+ <tr>
+     
+     <td><?php echo $this->escapeHtml($student->name);?></td>
+     <td><?php echo $this->escapeHtml($student->department);?></td>
+     <td>
+         
+ <a href="<?php echo $this->url('success1',
+           array('action'=>'edit', 'id' => $student->id));?>">Edit</a>
+         <a href="<?php echo $this->url('success1',
+             array('action'=>'delete', 'id' => $student->id));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+ <?php
+ // this is additional for pagination
+ /*echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     'partial/paginator.phtml',
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'success1'
+     )
+  ); */
+ //below one for pagination and sorting
+ echo $this->paginationControl(
+            $this->$paginator, 'sliding', 'paginator-slide', array('order_by' => $order_by, 'order' => $order)
+      );
+ 
+ ?>

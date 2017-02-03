@@ -1,0 +1,73 @@
+
+
+<p> Login Success. </p>
+<br />
+
+<!-- messages returns  are not shown (have to use php) -->
+
+<br />
+<a id="lgt" >Logout</a>
+
+
+<h1 style="color:#009999"> Student List </h1>
+ <p>
+     <a  id="add" >Add new Student</a>
+ </p>
+ 
+ 
+ <div ng-app="myApp" ng-controller="myCtrl"> 
+     <table class="table table-bordered table-hover">
+         <tr style="background-color: #cccccc">
+             <th ng-click="orderByMe('name')">Name</th>
+             <th ng-click="orderByMe('department')">Department</th>
+             <th>&nbsp;</th>
+         </tr>
+         <tr ng-repeat="x in names | orderBy:myOrderBy">
+             <td>{{ x.name }}</td>
+             <td>{{ x.department }}</td>
+             <td>
+                 <a id='edit' href="{{BP}}/success/edit/{{x.id}} ">Edit</a>
+                 <a id='delete' href="{{BP}}/success/delete/{{x.id}} ">Delete</a>
+             </td>
+         </tr>
+     </table>
+     
+ 
+ </div>
+
+
+
+ <script  >
+    
+    var host = "http://" + window.location.hostname;
+    var basePath = host + '/PhpProject5_album/ZendSkeletonApplication/public/stzs' ;
+     
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+        $http.get( basePath + '/success/data' )
+        .then(function (response) {$scope.names = response.data.stzs;});
+        
+    
+       $scope.orderByMe = function(x) {
+          $scope.myOrderBy = x; 
+        };
+        
+        $scope.BP = basePath ;
+    
+    });
+    
+    
+    $(document).ready(function(){ 
+        $("a#lgt").attr("href", basePath + '/logout');
+        $("a#add").attr("href", basePath + '/success/add');
+   
+   });
+  
+    
+</script>
+
+ 
+ 
+
+
+
