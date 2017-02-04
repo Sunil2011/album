@@ -1,5 +1,5 @@
 {
-  "name": "ZendSkeletonApplication",
+  "name": "zendapp",
   "version": "1.7.0",
   "homepage": "https://github.com/zendframework/ZendSkeletonApplication",
   "authors": [
@@ -12,5 +12,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular": "1.5.3",
+    "angular-utils-pagination":"0.11.0"
+    
+  }
 }
